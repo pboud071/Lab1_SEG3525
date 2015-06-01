@@ -1,29 +1,53 @@
 package com.example.root.lab1;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainActivity extends Activity {
 
     Button btnConfirm;
 
+    int DEFAULT_NBR_PERS = 1;
+    EditText montantTf;
+    EditText pourbTf;
+    EditText nbrPersTf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       btnConfirm = (Button)findViewById(R.id.buttonConfirm);
+
+        montantTf = (EditText)findViewById(R.id.MontantFactureTxtfield_main);
+        pourbTf= (EditText)findViewById(R.id.pourboireTxtfield_main);
+        nbrPersTf = (EditText)findViewById(R.id.nbrPersonneTxtfield_main);
+
+        nbrPersTf.setText("" + DEFAULT_NBR_PERS);
+
+        btnConfirm = (Button)findViewById(R.id.buttonConfirm);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String montantStr = montantTf.getText().toString();
+                String pourbStr = pourbTf.getText().toString();
+                String nbrPersStr = nbrPersTf.getText().toString();
 
-                startActivity(new Intent(MainActivity.this, sommaire.class));
+                if(montantStr.equals("") || pourbStr.equals("") || nbrPersStr.equals("")){
+
+                }
+                else {
+                    Intent sommaire = new Intent(MainActivity.this, sommaire.class);
+                    sommaire.putExtra("valeurs_main", montantStr + "-" + pourbStr + "-" + nbrPersStr);
+                    startActivity(sommaire);
+                }
             }
         });
     }

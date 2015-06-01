@@ -2,16 +2,80 @@ package com.example.root.lab1;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class sommaire extends Activity {
+
+    double montant_som;
+    double pourb_som;
+    int nbrPers_som;
+
+    TextView montantfactTv;
+    TextView pourbMontantTv;
+    TextView montantTotalTv;
+    TextView pourboireParPersTv;
+    TextView chaquePersonnePayeTv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sommaire);
+
+        String fullString;
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                fullString= null;
+            } else {
+                fullString= extras.getString("valeurs_main");
+            }
+        } else {
+            fullString= (String) savedInstanceState.getSerializable("valeurs_main");
+        }
+
+        String[] values = fullString.split("-");
+
+        montant_som = Double.parseDouble(values[0]);
+        pourb_som = (Double.parseDouble(values[1]))/100;
+        nbrPers_som = Integer.parseInt(values[2]);
+
+        montantfactTv = (TextView)findViewById(R.id.montantFactureRslt);
+        pourbMontantTv = (TextView)findViewById(R.id.montantPourbRslt);
+        montantTotalTv = (TextView)findViewById(R.id.montantTotalRslt);
+        pourboireParPersTv = (TextView)findViewById(R.id.pourboireParPersRslt);
+        chaquePersonnePayeTv = (TextView)findViewById(R.id.chqPersonneRslt);
+
+        //Initialisation des variables de calcul
+        double pourbMontant = 0.0;
+        double montantTotal = 0.0;
+        double pourbParPers = 0.0;
+        double chaquePersPaye = 0.0;
+
+        //Montant de la facture
+        montantfactTv.setText(String.format("%.2f", montant_som));
+
+        //Montant du pourboire
+        pourbMontant = montant_som * pourb_som;
+        pourbMontantTv.setText(String.format("%.2f", pourbMontant) + " $");
+
+        //Montant total a payer
+        montantTotal = pourbMontant + montant_som;
+        montantTotalTv.setText(String.format("%.2f", montantTotal) + " $");
+
+        //Pourboire par personne
+        pourbParPers = pourbMontant/nbrPers_som;
+        pourboireParPersTv.setText(String.format("%.2f", pourbParPers) + " $");
+
+        //Chaque personne paye
+        chaquePersPaye = montantTotal/nbrPers_som;
+        chaquePersonnePayeTv.setText(String.format("%.2f", chaquePersPaye) + " $");
     }
 
     @Override
