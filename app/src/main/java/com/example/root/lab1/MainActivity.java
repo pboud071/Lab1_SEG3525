@@ -1,7 +1,9 @@
 package com.example.root.lab1;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +21,8 @@ public class MainActivity extends Activity {
     EditText montantTf;
     EditText pourbTf;
     EditText nbrPersTf;
+
+    AlertDialog alertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +46,38 @@ public class MainActivity extends Activity {
 
                 if(montantStr.equals("") || pourbStr.equals("") || nbrPersStr.equals("")){
 
+                    String alertTitle = "Champ incomplet";
+                    String alertMsg;
+
+                    if(nbrPersStr.equals(""))
+                    {
+                        alertMsg = "Pour continuer, fournissez une valeur pour le - Nombre De Personne - payant votre facture.";
+
+                    }
+                    else if(pourbStr.equals(""))
+                    {
+                        alertMsg = "Pour continuer, fournissez une valeur pour le pourcentage de - Pourboire - désiré sur votre facture.";
+                    }
+                    else
+                    {
+                        alertMsg = "Pour continuer, fournissez une valeur pour le - Montant Total - de votre facture.";
+                    }
+
+
+                    alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.setTitle(alertTitle);
+                    alertDialog.setMessage(alertMsg);
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+                    alertDialog.show();
+
                 }
                 else {
                     Intent sommaire = new Intent(MainActivity.this, sommaire.class);
-                    sommaire.putExtra("valeurs_main", montantStr + "-" + pourbStr + "-" + nbrPersStr);
+                    sommaire.putExtra("valeurs_main", montantStr + "!" + pourbStr + "!" + nbrPersStr);
                     startActivity(sommaire);
                 }
             }

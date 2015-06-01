@@ -40,7 +40,7 @@ public class sommaire extends Activity {
             fullString= (String) savedInstanceState.getSerializable("valeurs_main");
         }
 
-        String[] values = fullString.split("-");
+        String[] values = fullString.split("!");
 
         montant_som = Double.parseDouble(values[0]);
         pourb_som = (Double.parseDouble(values[1]))/100;
@@ -59,7 +59,7 @@ public class sommaire extends Activity {
         double chaquePersPaye = 0.0;
 
         //Montant de la facture
-        montantfactTv.setText(String.format("%.2f", montant_som));
+        montantfactTv.setText(String.format("%.2f", montant_som) + " $");
 
         //Montant du pourboire
         pourbMontant = montant_som * pourb_som;
