@@ -20,6 +20,14 @@
             android:name=".sommaire"
             android:label="@string/title_activity_sommaire" >
         </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.root.lab1.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

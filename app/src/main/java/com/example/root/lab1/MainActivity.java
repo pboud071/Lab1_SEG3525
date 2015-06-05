@@ -11,11 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
 
     Button btnConfirm;
+    Button btnSettings;
 
     int DEFAULT_NBR_PERS = 1;
     EditText montantTf;
@@ -23,6 +25,9 @@ public class MainActivity extends Activity {
     EditText nbrPersTf;
 
     AlertDialog alertDialog;
+
+    public static int defaultPercentage = 15;
+    public static String defaultDevise = "Dollar($)";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +49,17 @@ public class MainActivity extends Activity {
                 String pourbStr = pourbTf.getText().toString();
                 String nbrPersStr = nbrPersTf.getText().toString();
 
-                if(montantStr.equals("") || pourbStr.equals("") || nbrPersStr.equals("")){
+                if (montantStr.equals("") || pourbStr.equals("") || nbrPersStr.equals("")) {
 
                     String alertTitle = "Champ incomplet";
                     String alertMsg;
 
-                    if(nbrPersStr.equals(""))
-                    {
+                    if (nbrPersStr.equals("")) {
                         alertMsg = "Pour continuer, fournissez une valeur pour le - Nombre De Personne - payant votre facture.";
 
-                    }
-                    else if(pourbStr.equals(""))
-                    {
+                    } else if (pourbStr.equals("")) {
                         alertMsg = "Pour continuer, fournissez une valeur pour le pourcentage de - Pourboire - désiré sur votre facture.";
-                    }
-                    else
-                    {
+                    } else {
                         alertMsg = "Pour continuer, fournissez une valeur pour le - Montant Total - de votre facture.";
                     }
 
@@ -74,14 +74,29 @@ public class MainActivity extends Activity {
                     });
                     alertDialog.show();
 
-                }
-                else {
+                } else {
                     Intent sommaire = new Intent(MainActivity.this, sommaire.class);
                     sommaire.putExtra("valeurs_main", montantStr + "!" + pourbStr + "!" + nbrPersStr);
                     startActivity(sommaire);
                 }
             }
         });
+
+        btnSettings = (Button)findViewById(R.id.buttonSettings);
+        btnSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settings);
+            }
+        });
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        pourbTf= (EditText)findViewById(R.id.pourboireTxtfield_main);
+        pourbTf.setText(String.valueOf(defaultPercentage));
     }
 
     @Override
