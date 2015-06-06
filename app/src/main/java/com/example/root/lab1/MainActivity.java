@@ -18,6 +18,7 @@ public class MainActivity extends Activity {
 
     Button btnConfirm;
     Button btnSettings;
+    Button btnTipSuggester;
 
     int DEFAULT_NBR_PERS = 1;
     EditText montantTf;
@@ -88,6 +89,15 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(settings);
+            }
+        });
+
+        btnTipSuggester = (Button)findViewById(R.id.buttonTipSuggester);
+        btnTipSuggester.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tipSuggester = new Intent(MainActivity.this, TipSuggesterActivity.class);
+                startActivity(tipSuggester);
             }
         });
     }

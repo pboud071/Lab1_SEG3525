@@ -28,6 +28,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.root.lab1.MainActivity" />
         </activity>
+        <activity
+            android:name=".TipSuggesterActivity"
+            android:label="@string/title_activity_tip_suggester" >
+        </activity>
     </application>
 
 </manifest>
