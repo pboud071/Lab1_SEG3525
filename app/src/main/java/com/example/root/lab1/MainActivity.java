@@ -40,6 +40,8 @@ public class MainActivity extends Activity {
         pourbTf= (EditText)findViewById(R.id.pourboireTxtfield_main);
         nbrPersTf = (EditText)findViewById(R.id.nbrPersonneTxtfield_main);
 
+
+
         nbrPersTf.setText("" + DEFAULT_NBR_PERS);
 
         btnConfirm = (Button)findViewById(R.id.buttonConfirm);
@@ -50,10 +52,28 @@ public class MainActivity extends Activity {
                 String pourbStr = pourbTf.getText().toString();
                 String nbrPersStr = nbrPersTf.getText().toString();
 
-                if (montantStr.equals("") || pourbStr.equals("") || nbrPersStr.equals("")) {
+                int nbrPers_int = Integer.parseInt(nbrPersStr);
 
-                    String alertTitle = "Champ incomplet";
-                    String alertMsg;
+                String alertTitle = "Champ incomplet";
+                String alertMsg;
+
+                if(nbrPers_int <= 0) {
+                    alertTitle = "Personne ne veut payer ?";
+                    alertMsg = "Pour continuer, fournissez une valeur superieur à 0 pour le - Nombre De Personne - payant votre facture.";
+
+                    alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                    alertDialog.setTitle(alertTitle);
+                    alertDialog.setMessage(alertMsg);
+                    alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            return;
+                        }
+                    });
+
+                    alertDialog.show();
+                }
+                else if (montantStr.equals("") || pourbStr.equals("") || nbrPersStr.equals("")) {
+
 
                     if (nbrPersStr.equals("")) {
                         alertMsg = "Pour continuer, fournissez une valeur pour le - Nombre De Personne - payant votre facture.";
