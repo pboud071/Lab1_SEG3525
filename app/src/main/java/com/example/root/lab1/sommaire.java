@@ -1,7 +1,9 @@
 package com.example.root.lab1;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,12 +23,14 @@ public class sommaire extends Activity {
     TextView pourboireParPersTv;
     TextView chaquePersonnePayeTv;
 
+    SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sommaire);
-
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        String defaultDevise = preferences.getString("defaultDevise", "$");
         String fullString;
 
         if (savedInstanceState == null) {
@@ -59,23 +63,23 @@ public class sommaire extends Activity {
         double chaquePersPaye = 0.0;
 
         //Montant de la facture
-        montantfactTv.setText(String.format("%.2f", montant_som) + " $");
+        montantfactTv.setText(String.format("%.2f", montant_som) + defaultDevise);
 
         //Montant du pourboire
         pourbMontant = montant_som * pourb_som;
-        pourbMontantTv.setText(String.format("%.2f", pourbMontant) + " $");
+        pourbMontantTv.setText(String.format("%.2f", pourbMontant) + defaultDevise);
 
         //Montant total a payer
         montantTotal = pourbMontant + montant_som;
-        montantTotalTv.setText(String.format("%.2f", montantTotal) + " $");
+        montantTotalTv.setText(String.format("%.2f", montantTotal) + defaultDevise);
 
         //Pourboire par personne
         pourbParPers = pourbMontant/nbrPers_som;
-        pourboireParPersTv.setText(String.format("%.2f", pourbParPers) + " $");
+        pourboireParPersTv.setText(String.format("%.2f", pourbParPers) + defaultDevise);
 
         //Chaque personne paye
         chaquePersPaye = montantTotal/nbrPers_som;
-        chaquePersonnePayeTv.setText(String.format("%.2f", chaquePersPaye) + " $");
+        chaquePersonnePayeTv.setText(String.format("%.2f", chaquePersPaye) + defaultDevise);
     }
 
     @Override

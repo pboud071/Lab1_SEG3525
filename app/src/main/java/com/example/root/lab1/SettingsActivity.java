@@ -28,7 +28,7 @@ public class SettingsActivity extends Activity {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Spinner dropdown = (Spinner)findViewById(R.id.deviseSpinner);
-        String[] items = new String[]{"Dollar($)", "Euro", "Livre"};
+        String[] items = new String[]{"Dollar ($)", "Euro (€)", "Livre (£)"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         dropdown.setAdapter(adapter);
 
@@ -51,9 +51,9 @@ public class SettingsActivity extends Activity {
                 if (defaultDeviseIndex == 0) {
                     defaultDevise = "$";
                 } else if (defaultDeviseIndex == 1) {
-                    defaultDevise = "Euro";
+                    defaultDevise = "€";
                 } else if (defaultDeviseIndex == 2) {
-                    defaultDevise = "Livres";
+                    defaultDevise = "£";
                 }
                 /*MainActivity.defaultPercentage = defaultPercentage;
                 MainActivity.defaultDevise = defaultDevise;*/
