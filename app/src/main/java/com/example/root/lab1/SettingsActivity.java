@@ -28,7 +28,7 @@ public class SettingsActivity extends Activity {
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         Spinner dropdown = (Spinner)findViewById(R.id.deviseSpinner);
-        String[] items = new String[]{"Dollar ($)", "Euro (€)", "Livre (£)"};
+        String[] items = new String[]{"Dollar($)", "Euro", "Livre"};
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         dropdown.setAdapter(adapter);
 
@@ -36,33 +36,34 @@ public class SettingsActivity extends Activity {
         btnConfirmSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                txtDefaultPercentage = (EditText)findViewById(R.id.defaultPourcentageTxt);
-                spinDefaultDevise = (Spinner)findViewById(R.id.deviseSpinner);
+                txtDefaultPercentage = (EditText) findViewById(R.id.defaultPourcentageTxt);
+                spinDefaultDevise = (Spinner) findViewById(R.id.deviseSpinner);
                 float defaultPercentage;
                 String defaultPercentageString = txtDefaultPercentage.getText().toString();
-                if(defaultPercentageString.matches("")){
+                if (defaultPercentageString.matches("")) {
                     defaultPercentage = -1;
-                }else{
+                } else {
                     defaultPercentage = Float.parseFloat(defaultPercentageString);
                 }
 
                 int defaultDeviseIndex = spinDefaultDevise.getSelectedItemPosition();
                 String defaultDevise = "$";
-                if(defaultDeviseIndex == 0){
+                if (defaultDeviseIndex == 0) {
                     defaultDevise = "$";
-                }else if(defaultDeviseIndex == 1){
+                } else if (defaultDeviseIndex == 1) {
                     defaultDevise = "Euro";
-                }else if(defaultDeviseIndex == 2){
+                } else if (defaultDeviseIndex == 2) {
                     defaultDevise = "Livres";
                 }
                 /*MainActivity.defaultPercentage = defaultPercentage;
                 MainActivity.defaultDevise = defaultDevise;*/
                 SharedPreferences.Editor editor = preferences.edit();
-                if(defaultPercentage < 0 || defaultPercentage >100){
+                if (defaultPercentage > 100) {
                     Toast.makeText(getApplicationContext(), "Le pourcentage par default doit etre un nombre entre 0 et 100", Toast.LENGTH_LONG).show();
-                    defaultPercentage = 0;
-                }else{
-                    editor.putFloat("defaultPercentage", defaultPercentage);
+                } else {
+                    if(defaultPercentage != -1) {
+                        editor.putFloat("defaultPercentage", defaultPercentage);
+                    }
                     editor.putString("defaultDevise", defaultDevise);
                     editor.commit();
                     finish();
