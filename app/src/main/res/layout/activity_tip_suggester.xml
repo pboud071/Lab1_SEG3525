@@ -36,7 +36,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:weightSum="1"
-        android:layout_marginTop="100px">
+        android:layout_marginTop="100px"
+        android:id="@+id/linearLayout">
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,4 +56,37 @@
             android:id="@+id/tipValueLbl" />
 
     </LinearLayout>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/suggest_cancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:layout_marginBottom="64dp"
+        android:width="100dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Confirm"
+        android:id="@+id/confirm_suggest_tip"
+        android:enabled="true"
+        android:layout_alignTop="@+id/suggest_cancel"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="53dp"
+        android:layout_marginEnd="53dp"
+        android:width="100dp" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/confirm_suggest_tip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"></LinearLayout>
+
 </RelativeLayout>

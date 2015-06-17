@@ -31,6 +31,9 @@ public class MainActivity extends Activity {
     float defaultPercentage;
     String defaultDevise;
 
+    String montantStr = "";
+    String pourbStr = "";
+    String nbrPersStr = "";
     SharedPreferences preferences;
 
 
@@ -57,9 +60,9 @@ public class MainActivity extends Activity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String montantStr = montantTf.getText().toString();
-                String pourbStr = pourbTf.getText().toString();
-                String nbrPersStr = nbrPersTf.getText().toString();
+                montantStr = montantTf.getText().toString();
+                pourbStr = pourbTf.getText().toString();
+                nbrPersStr = nbrPersTf.getText().toString();
 
                 int nbrPers_int = Integer.parseInt(nbrPersStr);
 
@@ -125,7 +128,15 @@ public class MainActivity extends Activity {
         btnTipSuggester.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                montantStr = montantTf.getText().toString();
+                pourbStr = pourbTf.getText().toString();
+                nbrPersStr = nbrPersTf.getText().toString();
                 Intent tipSuggester = new Intent(MainActivity.this, TipSuggesterActivity.class);
+                Bundle bndl = new Bundle();
+                bndl.putString("TIP", pourbStr);
+                bndl.putString("NBR_PERS", nbrPersStr);
+                bndl.putString("MNT_FACT", montantStr);
+                tipSuggester.putExtras(bndl);
                 startActivity(tipSuggester);
             }
         });
@@ -139,6 +150,22 @@ public class MainActivity extends Activity {
         pourbTf= (EditText)findViewById(R.id.pourboireTxtfield_main);
         pourbTf.setText(String.valueOf(defaultPercentage));
         montantFactureTextView.setText("Montant de la facture ("+defaultDevise+")");
+
+        //Extract the bundle from the intent to use variables
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            //Extract each value from the bundle for usage
+            montantStr = bundle.getString("MNT_FACT");
+            pourbStr = bundle.getString("TIP");
+            nbrPersStr = bundle.getString("NBR_PERS");
+
+            montantTf.setText(String.valueOf(montantStr));
+            pourbTf.setText(String.valueOf(pourbStr));
+            nbrPersTf.setText(String.valueOf(nbrPersStr));
+
+        }
+
+
     }
 
     @Override
