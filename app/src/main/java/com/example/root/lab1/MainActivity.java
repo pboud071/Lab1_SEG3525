@@ -119,6 +119,12 @@ public class MainActivity extends Activity {
         btnSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle bndl = new Bundle();
+                bndl.putString("TIP", pourbStr);
+                bndl.putString("NBR_PERS", nbrPersStr);
+                bndl.putString("MNT_FACT", montantStr);
+                bndl.putString("flag", "123");
+                getIntent().putExtras(bndl);
                 Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(settings);
             }
@@ -158,10 +164,15 @@ public class MainActivity extends Activity {
             montantStr = bundle.getString("MNT_FACT");
             pourbStr = bundle.getString("TIP");
             nbrPersStr = bundle.getString("NBR_PERS");
+            String flag = bundle.getString("flag");
 
-            montantTf.setText(String.valueOf(montantStr));
-            pourbTf.setText(String.valueOf(pourbStr));
-            nbrPersTf.setText(String.valueOf(nbrPersStr));
+            if(flag == null) {
+
+                montantTf.setText(String.valueOf(montantStr));
+                pourbTf.setText(String.valueOf(pourbStr));
+                nbrPersTf.setText(String.valueOf(nbrPersStr));
+            }
+
 
         }
 
